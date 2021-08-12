@@ -10,12 +10,12 @@ export const router = new VueRouter({
     routes: [
         {
             path: '/',
-            component: MyProfile,
+            component: MyProfile
         },
         {
             path: '/modification',
-            component: MyProfileModification,
-        }
+            component: MyProfileModification 
+        },
         
     ]
   });

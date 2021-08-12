@@ -1,8 +1,11 @@
 <template>
   <div id="app">
     <HeaderView></HeaderView>
-    <router-view v-bind:propsdata="userInfo"></router-view>
+    <router-view v-bind:propsdata="userInfo" 
+                 v-on:modifyInfo="modifyInfo"></router-view>
+    <hr>
     <MyAwards></MyAwards>
+    <hr>
     <MyCertificate></MyCertificate>
     <FooterView></FooterView>
   </div>
@@ -32,6 +35,16 @@ export default {
     MyCertificate,
     FooterView,
   },
+  methods: {
+    modifyInfo(info) {
+      console.log("after" + info)
+    }
+  },
+  watch: {
+    userInfo(newValue, oldValue) {
+      console.log(newValue, oldValue)
+    }
+  }
 };
 </script>
 
@@ -40,8 +53,8 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   text-align: center;
 }
-input {
+/* input {
   width: 200px;
   border-style: groove;
-}
+} */
 </style>
