@@ -1,8 +1,7 @@
 <template>
   <div id="app">
     <HeaderView></HeaderView>
-    <router-view v-bind:propsdata="userInfo" 
-                 v-on:modifyInfo="modifyInfo"></router-view>
+    <router-view></router-view>
     <hr>
     <MyAwards></MyAwards>
     <hr>
@@ -20,13 +19,7 @@ import FooterView from "./views/FooterView.vue";
 export default {
   data() {
     return {
-      userInfo:{
-        name: "",
-        birthday: "",
-        phoneNumber: "",
-        university: "",
-        introduction: "",
-      }
+      
     }
   },
   components: {
@@ -36,15 +29,13 @@ export default {
     FooterView,
   },
   methods: {
-    modifyInfo(info) {
-      console.log("after" + info)
+    console() {
+      console.log("DDDD");
+    },
+    modifyInfo(name, birthday, phoneNumber, university, introduction) {
+      console.log("after" +name, birthday, phoneNumber, university, introduction);
     }
   },
-  watch: {
-    userInfo(newValue, oldValue) {
-      console.log(newValue, oldValue)
-    }
-  }
 };
 </script>
 
