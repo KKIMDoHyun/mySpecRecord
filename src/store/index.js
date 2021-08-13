@@ -32,8 +32,7 @@ export const store = new Vuex.Store({
             localStorage.setItem("user", JSON.stringify(state.userInfo));
         },
         addOneCertificate(state, payload) {
-            const certification = JSON.stringify(payload);
-            state.certifications.push(JSON.parse(certification));
+            state.certifications.push(JSON.stringify(JSON.parse(payload)));
             console.log(state.certifications)
             localStorage.setItem("certifications", JSON.stringify(state.certifications));
         }
