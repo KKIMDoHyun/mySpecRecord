@@ -12,18 +12,14 @@
         <br>
         자기소개: {{ this.$store.state.userInfo.introduction }}
         <br>
-        <router-link to="modification">회원 정보 수정</router-link>
+        <router-link to="/modification">회원 정보 수정</router-link>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  data() {
-    return {
-      
-    }
-  },
+
 };
 </script>
 
