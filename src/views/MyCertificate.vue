@@ -2,12 +2,14 @@
   <div>
     <h2>수료증 / 자격증</h2>
     <span class="addContainer">
-      <i class="fas fa-plus" v-on:click="modalStatus = true"></i>
+      <i class="fas fa-plus btn" v-on:click="modalStatus = true"></i>
     </span>
-    <div class="modal" v-if="modalStatus">
-      <div class="modal-overlay"></div>
-      <div class="modal-content">
-          <i class="fas fa-times close" v-on:click="closeModal"></i>
+    <transition name="fade" appear>
+      <div class="modal-overlay" v-if="modalStatus"></div>
+    </transition>
+    <transition name="fade" appear>
+      <div class="modal" v-if="modalStatus">
+        <i class="fas fa-times btn" v-on:click="closeModal"></i>
           <h1>수료증 등록</h1>
           <span>이름:</span> <input type="text" v-model="certificateInfo.name">
           <br>
@@ -17,12 +19,13 @@
           <br>
           <span>링크:</span> <input type="text" v-model="certificateInfo.link">
           <br>
-          <button v-on:click="addCertificate">추가</button>
+          <button class="addBtn" v-on:click="addCertificate">추가</button>
       </div>
-    </div>
+    </transition>
+
     <transition-group name="list" tag="ul">
       <li v-for="(certification, index) in this.$store.state.certifications" v-bind:key="certification.link">
-        <span>{{ index }} </span>
+        <span>{{ index }} |</span>
         <span> 이름: {{ certification.name }} </span>
         <span> 발행기관: {{ certification.agency }} </span>
         <span> 발행날짜: {{ certification.date }} </span>
@@ -65,45 +68,97 @@ export default {
 </script>
 
 <style scoped>
-h1 {
-  margin: 0;
+.addContainer {
+    display: inline-block;
+    /* background: linear-gradient(to right, #6478FB, #8763FB); */
+    border-radius: 5px 5px 5px 5px;
+    transition: 0.5s ease-out;
 }
-.close {
+.btn {
   cursor: pointer;
-}
-.addContainer{
-  cursor: pointer;
-}
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: inline-block;
+  padding: 15px 25px;
+  vertical-align: middle;
+  font-size: 30px;
+  color: black;
+  /* font-weight: 500; */
 }
 .modal-overlay {
-  background-color: rgba(0,0,0,0.6);
-  width: 100%;
-  height: 100%;
   position: absolute;
-
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 98;
+  background-color: rgba(0, 0, 0, 0.4);
 }
-.modal-content {
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99;
+
+  width: 100%;
+  max-width: 50%;
   background-color: white;
-  padding: 50px 100px;
-  text-align: center;
-  position: relative;
-  border-radius: 10px;
-  width: 50%;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-}
+  border-radius: 16px;
 
+  padding: 30px;
+}
+ul {
+    list-style-type: none;
+    padding-left: 0px;
+    margin-top: 20px;
+    text-align: center;
+}
+li {
+    /* display: flex; */
+    min-height: 50px;
+    height: 50px;
+    line-height: 50px;
+    margin: 0.5rem 0;
+    padding: 0 0.9rem;
+    background: white;
+    border-radius: 5px;
+}
+.list-enter-active, .list-leave-active {
+  transition: all 1s;
+}
+.list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
 input {
-  margin: 0;
   width: 200px;
   border-style: groove;
+  margin-top: 10px;
+  text-align: center;
+}
+.addBtn {
+  margin-top: 20px;
+}
+
+i:hover {
+  -webkit-animation: shake 0.4s ease-in-out .1s infinite alternate;
+}
+@-webkit-keyframes shake {
+  from{
+    -webkit-transform: rotate(10deg);
+  }
+  to{
+    -webkit-transform: rotate(-10deg);
+    -webkit-transform-origin: center center;
+  }
 }
 </style>
