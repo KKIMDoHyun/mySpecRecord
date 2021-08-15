@@ -7,6 +7,7 @@
         대학교: <input type="text" v-model="user.university"/>
         자기소개: <textarea rows="6" cols="40" v-model="user.introduction"></textarea>
         <router-link v-on:click.native="modifyInfo" to="/">제출</router-link>
+        <router-link to="/">취소</router-link>
     </div>
 </template>
 

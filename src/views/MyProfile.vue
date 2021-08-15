@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>My Profile</h2>
+    <h2>내 정보</h2>
     <div class="name">
         이름: {{ this.$store.state.userInfo.name }}
         <br>

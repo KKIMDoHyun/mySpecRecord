@@ -18,13 +18,23 @@ const storage = {
             }
         }
         return arr;
-    }
+    },
+    fetchAwardList() {
+        const arr = [];
+        if (JSON.parse(localStorage.getItem('awardList'))) {
+            for (let i = 0; i < JSON.parse(localStorage.getItem('awardList')).length; i++) {
+                arr.push(JSON.parse(localStorage.getItem('awardList'))[i])
+            }
+        }
+        return arr;
+    },
 }
 
 export const store = new Vuex.Store({
     state: {
         userInfo: storage.fetchUser(),
         certifications: storage.fetchCertification(),
+        awardList: storage.fetchAwardList()
     },
     mutations: {
         modifyInfo(state, payload) {
@@ -32,9 +42,12 @@ export const store = new Vuex.Store({
             localStorage.setItem("user", JSON.stringify(state.userInfo));
         },
         addOneCertificate(state, payload) {
-            state.certifications.push(JSON.stringify(JSON.parse(payload)));
-            console.log(state.certifications)
+            state.certifications.push(JSON.parse(payload));
             localStorage.setItem("certifications", JSON.stringify(state.certifications));
+        },
+        addOneAward(state, payload) {
+            state.awardList.push(JSON.parse(payload))
+            localStorage.setItem("awardList", JSON.stringify(state.awardList));
         }
     },
         

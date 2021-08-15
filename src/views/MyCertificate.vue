@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2>Certificate</h2>
+    <h2>수료증 / 자격증</h2>
     <span class="addContainer">
       <i class="fas fa-plus" v-on:click="modalStatus = true"></i>
     </span>
@@ -21,7 +21,7 @@
       </div>
     </div>
     <transition-group name="list" tag="ul">
-      <li v-for="(certification, index) in this.$store.state.certifications" v-bind:key="certification">
+      <li v-for="(certification, index) in this.$store.state.certifications" v-bind:key="certification.link">
         <span>{{ index }} </span>
         <span> 이름: {{ certification.name }} </span>
         <span> 발행기관: {{ certification.agency }} </span>
@@ -47,18 +47,19 @@ export default {
   },
   methods: {
     addCertificate() {
-      this.$store.commit('addOneCertificate', this.certificateInfo)
-      this.modalStatus = !this.modalStatus;
+      this.$store.commit('addOneCertificate', JSON.stringify(this.certificateInfo));
+      this.closeModal();
     },
     closeModal() {
       this.modalStatus = !this.modalStatus;
+      this.clearInput();
     },
-    // clearInput() {
-    //   this.certificateInfo.name = '';
-    //   this.certificateInfo.agency = '';
-    //   this.certificateInfo.date = '';
-    //   this.certificateInfo.link = '';
-    // }
+    clearInput() {
+      this.certificateInfo.name = '';
+      this.certificateInfo.agency = '';
+      this.certificateInfo.date = '';
+      this.certificateInfo.link = '';
+    }
   }
 };
 </script>
