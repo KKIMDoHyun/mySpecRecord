@@ -14,7 +14,7 @@ const storage = {
         const arr = [];
         if (JSON.parse(localStorage.getItem('certifications'))) {
             for (let i = 0; i < JSON.parse(localStorage.getItem('certifications')).length; i++) {
-                arr.push(JSON.parse(localStorage.getItem('certifications'))[i])
+                arr.push(JSON.parse(localStorage.getItem('certifications'))[i]);
             }
         }
         return arr;
@@ -23,7 +23,7 @@ const storage = {
         const arr = [];
         if (JSON.parse(localStorage.getItem('awardList'))) {
             for (let i = 0; i < JSON.parse(localStorage.getItem('awardList')).length; i++) {
-                arr.push(JSON.parse(localStorage.getItem('awardList'))[i])
+                arr.push(JSON.parse(localStorage.getItem('awardList'))[i]);
             }
         }
         return arr;
@@ -46,7 +46,7 @@ export const store = new Vuex.Store({
             localStorage.setItem("certifications", JSON.stringify(state.certifications));
         },
         addOneAward(state, payload) {
-            state.awardList.push(JSON.parse(payload))
+            state.awardList.push(JSON.parse(payload));
             localStorage.setItem("awardList", JSON.stringify(state.awardList));
         },
         removeOneCertification(state, payload) {

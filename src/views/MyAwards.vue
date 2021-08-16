@@ -33,13 +33,13 @@ export default {
   },
   methods: {
     addAward() {
-      this.showAddAward = true
+      this.showAddAward = true;
     },
     cancelAward() {
-      this.showAddAward = false
+      this.showAddAward = false;
     },
     completeAward() {
-      this.$store.commit('addOneAward', JSON.stringify(this.award))
+      this.$store.commit('addOneAward', JSON.stringify(this.award));
       this.clearInput();
     },
     clearInput() {

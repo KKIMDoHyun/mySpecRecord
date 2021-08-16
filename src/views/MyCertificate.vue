@@ -81,8 +81,7 @@ export default {
       this.certificateInfo.link = '';
     },
     removeCertification(certification, index) {
-      // console.log({certification, index})
-      this.$store.commit('removeOneCertification', {certification, index})
+      this.$store.commit('removeOneCertification', {certification, index});
     }
   }
 };

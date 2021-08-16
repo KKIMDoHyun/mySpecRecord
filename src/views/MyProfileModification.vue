@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     modifyInfo(){
-        this.$store.commit('modifyInfo', this.user)   
+        this.$store.commit('modifyInfo', this.user);  
     }
   },
 };
