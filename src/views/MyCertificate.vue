@@ -7,24 +7,37 @@
     <transition name="fade" appear>
       <div class="modal-overlay" v-if="modalStatus"></div>
     </transition>
-    <transition name="fade" appear>
-      <div class="modal" v-if="modalStatus">
-        <i class="fas fa-times btn" v-on:click="closeModal"></i>
-          <h1>수료증 등록</h1>
-          <span>이름:</span> <input type="text" v-model="certificateInfo.name">
-          <br>
-          <span>발행기관:</span> <input type="text" v-model="certificateInfo.agency">
-          <br>
-          <span>발행일:</span> <input type="month" v-model="certificateInfo.date">
-          <br>
-          <span>링크:</span> <input type="text" v-model="certificateInfo.link">
-          <br>
-          <button class="addBtn" v-on:click="addCertificate">추가</button>
-      </div>
-    </transition>
+    <form @submit="addCertificate">
+      <transition name="fade" appear>
+        <div class="modal" v-if="modalStatus">
+          <i class="fas fa-times btn" v-on:click="closeModal"></i>
+            <h1>수료증 등록</h1>
+            <div>
+              <label for="certificationName">이름: </label>
+              <input id="certificationName" type="text" v-model="certificateInfo.name" required>
+              <span class="validity"></span>
+            </div>
+            <div>
+              <label for="agency">발행기관: </label>
+              <input id="agency" type="text" v-model="certificateInfo.agency" required>
+              <span class="validity"></span>
+            </div>
+            <div>
+              <label for="date">발행날짜: </label>
+              <input id="date" type="month" max="2021-12" min="1990-01" v-model="certificateInfo.date" required>
+              <span class="validity"></span>
+            </div>
+            <div>
+              <label for="link">링크: </label>
+              <input id="link" type="text" v-model="certificateInfo.link">
+            </div>
+            <button type="submit" class="addBtn">추가</button>
+        </div>
+      </transition>
+    </form>
 
     <transition-group name="list" tag="ul">
-      <li v-for="(certification, index) in this.$store.state.certifications" v-bind:key="certification.link">
+      <li v-for="(certification, index) in this.$store.state.certifications" v-bind:key="index">
         <span>{{ index }} |</span>
         <span> 이름: {{ certification.name }} </span>
         <span> 발행기관: {{ certification.agency }} </span>
@@ -45,7 +58,8 @@ export default {
         agency: "",
         date: "",
         link: ""
-      }
+      },
+      maxDate: new Date()
     }
   },
   methods: {
@@ -145,8 +159,7 @@ li {
 input {
   width: 200px;
   border-style: groove;
-  margin-top: 10px;
-  text-align: center;
+  margin-top: 15px;
 }
 .addBtn {
   margin-top: 20px;
@@ -163,5 +176,16 @@ i:hover {
     -webkit-transform: rotate(-10deg);
     -webkit-transform-origin: center center;
   }
+}
+
+input:invalid+span:after {
+  content: '✖';
+  
+  padding-left: 5px;
+}
+
+input:valid+span:after {
+  content: '✓';
+  padding-left: 5px;
 }
 </style>

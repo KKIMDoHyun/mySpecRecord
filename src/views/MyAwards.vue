@@ -40,12 +40,13 @@ export default {
     },
     completeAward() {
       this.$store.commit('addOneAward', JSON.stringify(this.award))
-      // this.clearInput();
+      this.clearInput();
     },
     clearInput() {
       this.award.date = "";
       this.award.awardName = "";
       this.award.detail = "";
+      this.showAddAward = false;
     }
   }
 };
