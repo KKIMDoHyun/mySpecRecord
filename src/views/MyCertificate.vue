@@ -38,11 +38,14 @@
 
     <transition-group name="list" tag="ul">
       <li v-for="(certification, index) in this.$store.state.certifications" v-bind:key="index">
-        <span>{{ index }} |</span>
+        <span>{{ index+1 }} |</span>
         <span> 이름: {{ certification.name }} </span>
         <span> 발행기관: {{ certification.agency }} </span>
         <span> 발행날짜: {{ certification.date }} </span>
         <span> 관련 URL: <a v-bind:href="certification.link">{{ certification.link }}</a> </span>
+        <span>
+          <i class="fas fa-times btn" v-on:click="removeCertification(certification, index)"></i>
+        </span>
       </li>
     </transition-group>
   </div>
@@ -76,6 +79,10 @@ export default {
       this.certificateInfo.agency = '';
       this.certificateInfo.date = '';
       this.certificateInfo.link = '';
+    },
+    removeCertification(certification, index) {
+      // console.log({certification, index})
+      this.$store.commit('removeOneCertificate', {certification, index})
     }
   }
 };
