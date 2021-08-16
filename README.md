@@ -50,3 +50,17 @@ ___
 - 모달 창이 나왔을 때 바깥의 스크롤을 막고 싶었지만 계속 스크롤이 적용이 되었다.
 
 > 해결: 구글링을 통해 .fade-enter-active와 .fade-leave-active 등으로 리스트 출력 애니메이션을, @-webkit-keyframes shake을 이용하여 버튼 흔들기 애니메이션 적용을 성공하였다. 하지만 모달 창일 때 스크롤 방지는 overflow: hidden을 적용하면 되는 것 같은데 아직 해결되지 않았다.
+___
+
+## 2021-08-16
+### <활동>
+- 수료증 입력 부분에서 이름과 발행기관, 날짜에 공백이 있으면 안되도록 유효성 검사
+- 수료증의 삭제 기능 추가
+
+
+### <막혔던 점>
+- 수료증을 삭제할 때 localstorage에서 객체들이 있는 배열에서 선택한 객체를 삭제하는 것에서 어려움을 겪었다.
+
+> 해결: 먼저 storage에 있는 수료증 배열인 certifications에서 splice로 선택한 객체를 없앴다. 그리고 localstorage에서 key가 certifications인 것을 찾아 전부 지운 뒤 다시 certifications를 localstorage에 저장해주었다.
+
+![removeOneCertification](https://user-images.githubusercontent.com/52418706/129534759-448dfedf-d3ab-45b5-8541-93b35e945dd6.JPG)

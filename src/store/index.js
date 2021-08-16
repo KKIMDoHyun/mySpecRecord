@@ -49,9 +49,8 @@ export const store = new Vuex.Store({
             state.awardList.push(JSON.parse(payload))
             localStorage.setItem("awardList", JSON.stringify(state.awardList));
         },
-        removeOneCertificate(state, payload) {
+        removeOneCertification(state, payload) {
             state.certifications.splice(payload.index, 1);
-            console.log(state.certifications)
             localStorage.removeItem('certifications');
             localStorage.setItem("certifications", JSON.stringify(state.certifications));
         }

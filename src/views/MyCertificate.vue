@@ -82,7 +82,7 @@ export default {
     },
     removeCertification(certification, index) {
       // console.log({certification, index})
-      this.$store.commit('removeOneCertificate', {certification, index})
+      this.$store.commit('removeOneCertification', {certification, index})
     }
   }
 };
