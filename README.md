@@ -64,3 +64,20 @@ ___
 > 해결: 먼저 storage에 있는 수료증 배열인 certifications에서 splice로 선택한 객체를 없앴다. 그리고 localstorage에서 key가 certifications인 것을 찾아 전부 지운 뒤 다시 certifications를 localstorage에 저장해주었다.
 
 ![removeOneCertification](https://user-images.githubusercontent.com/52418706/129534759-448dfedf-d3ab-45b5-8541-93b35e945dd6.JPG)
+
+___
+
+## 2021-08-17~18
+### <활동>
+- bootstrap-vue 적용
+- 전체적인 디자인 구조 변경
+- 개인 정보 수정 부분 bootstrap 적용 및 daum 주소 api 적용하여 주소 검색 기능 구현
+
+
+### <막혔던 점>
+- 처음으로 bootstrap-vue를 적용하였기 때문에 구조를 이해하고 적용하기 힘들었다.
+
+> 해결: bootstrap-vue 공식 자료를 찾아보면서 하나씩 적용해 보았다.
+
+[참고한 daum 우편번호 API](https://postcode.map.daum.net/guide)  
+[참고한 Bootstrap-vue](https://bootstrap-vue.org/)
