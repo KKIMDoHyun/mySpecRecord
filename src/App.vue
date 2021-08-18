@@ -7,9 +7,9 @@
 </template>
 
 <script>
-import HeaderView from "./components/HeaderView.vue";
-// import MyAwards from "./components/MyAwards.vue";
-// import MyCertificate from "./components/MyCertificate.vue";
+import HeaderView from "./components/TopBar.vue";
+// import MyAwards from "./views/MyAwards.vue";
+// import MyCertificate from "./views/MyCertificate.vue";
 import FooterView from "./components/FooterView.vue";
 
 export default {

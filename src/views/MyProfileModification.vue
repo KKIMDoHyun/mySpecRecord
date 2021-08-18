@@ -94,7 +94,7 @@
           id="zonecode"
           class="address"
           content-cols-lg="10"
-          v-model="user.address.zonecode"
+          v-model="user.zonecode"
           readonly
           required
         ></b-form-input>
@@ -102,7 +102,7 @@
           id="mainAddress"
           class="address"
           content-cols-lg="10"
-          v-model="user.address.mainAddress"
+          v-model="user.mainAddress"
           readonly
           required
         ></b-form-input>
@@ -111,13 +111,14 @@
           class="address"
           content-cols-lg="10"
           placeholder="상세주소"
-          v-model="user.address.detailAddress"
+          v-model="user.detailAddress"
           required
         ></b-form-input>
       </b-form-group>
     </b-form-group>
   </b-card>
-  <b-button v-on:click="modifyInfo" href="/">수정 완료</b-button>
+  <router-link v-on:click.native="submitInfo" to="/">dddd</router-link>
+  <!-- <b-button v-on:click="submitInfo">수정 완료</b-button> -->
 </div>
 </template>
 
@@ -131,11 +132,15 @@ export default {
         email: this.$store.state.userInfo.email,
         birthday: this.$store.state.userInfo.birthday,
         phoneNumber: this.$store.state.userInfo.phoneNumber,
-        address: {
-          zonecode: this.$store.state.userInfo.zonecode,
-          mainAddress: this.$store.state.userInfo.mainAddress,
-          detailAddress: this.$store.state.userInfo.detailAddress,
-        }
+        
+        zonecode: this.$store.state.userInfo.zonecode,
+        mainAddress: this.$store.state.userInfo.mainAddress,
+        detailAddress: this.$store.state.userInfo.detailAddress,
+        // address: {
+        //   zonecode: this.$store.state.userInfo.zonecode,
+        //   mainAddress: this.$store.state.userInfo.mainAddress,
+        //   detailAddress: this.$store.state.userInfo.detailAddress,
+        // }
       },
       options: [
         { text: '남', value: '남'},
@@ -144,9 +149,6 @@ export default {
     }  
   },
   methods: {
-    modifyInfo(){
-        this.$store.commit('modifyInfo', this.user);  
-    },
     searchAddress() {
       const vm = this;
       new window.daum.Postcode({
@@ -176,9 +178,9 @@ export default {
                 }
 
                 document.getElementById('zonecode').value = data.zonecode;
-                vm.user.address.zonecode = data.zonecode;
+                vm.user.zonecode = data.zonecode;
                 document.getElementById("mainAddress").value = addr;
-                vm.user.address.mainAddress = addr;
+                vm.user.mainAddress = addr;
 
                 document.getElementById("detailAddress").focus();
             }
@@ -186,9 +188,10 @@ export default {
     },
     submitInfo() {
       console.log(this.user)
-    }
-  },
-};
+      this.$store.commit('modifyInfo', this.user);
+    },
+  }
+}
 </script>
 
 <style scoped>

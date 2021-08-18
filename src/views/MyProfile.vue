@@ -10,7 +10,7 @@
         <br>
         전화번호: {{ this.$store.state.userInfo.phoneNumber }}
         <br>
-        주소: {{ this.$store.state.userInfo.address.mainAddress }} {{ this.$store.state.userInfo.address.detailAddress }}
+        주소: {{ this.$store.state.userInfo.mainAddress }} {{ this.$store.state.userInfo.detailAddress }}
         <br>
         <router-link to="/modification">회원 정보 수정</router-link>
     </div>

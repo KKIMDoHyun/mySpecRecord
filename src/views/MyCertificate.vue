@@ -1,6 +1,11 @@
 <template>
   <div>
-    <h2>수료증 / 자격증</h2>
+    <b-card bg-variant="light">
+      <h2>수료증 / 자격증</h2>
+      <Modal v-on:pass="addCertification"></Modal>
+      <b-table striped hover :items="items" :fields="fields"></b-table>
+    </b-card>
+    <!-- <h2>수료증 / 자격증</h2>
     <span class="addContainer">
       <i class="fas fa-plus btn" v-on:click="modalStatus = true"></i>
     </span>
@@ -34,9 +39,9 @@
             <button type="submit" class="addBtn">추가</button>
         </div>
       </transition>
-    </form>
-
-    <transition-group name="list" tag="ul">
+    </form> -->
+    
+    <!-- <transition-group name="list" tag="ul">
       <li v-for="(certification, index) in this.$store.state.certifications" v-bind:key="index">
         <span>{{ index+1 }} |</span>
         <span> 이름: {{ certification.name }} </span>
@@ -47,14 +52,16 @@
           <i class="fas fa-times btn" v-on:click="removeCertification(certification, index)"></i>
         </span>
       </li>
-    </transition-group>
+    </transition-group> -->
   </div>
 </template>
 
 <script>
+import Modal from '../components/Modal.vue';
 export default {
   data() {
     return {
+      fields: ['이름', '발행기관', '발행날짜', '관련URL'],
       modalStatus: false,
       certificateInfo: {
         name: "",
@@ -65,7 +72,13 @@ export default {
       maxDate: new Date()
     }
   },
+  components: {
+    Modal,
+  },
   methods: {
+    addCertification(certificationInfo) {
+      console.log(certificationInfo)
+    },
     addCertificate() {
       this.$store.commit('addOneCertificate', JSON.stringify(this.certificateInfo));
       this.closeModal();

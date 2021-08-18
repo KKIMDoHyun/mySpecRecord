@@ -1,10 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import MyProfile from '../components/MyProfile.vue'
-import MyAwards from '../components/MyAwards.vue'
-import MyCertificate from '../components/MyCertificate.vue'
-import MyProfileModification from '../components/MyProfileModification.vue'
-import InternationalActivity from '../components/InternationalActivity.vue'
+import MyProfile from '../views/MyProfile.vue'
+import MyAwards from '../views/MyAwards.vue'
+import MyCertificate from '../views/MyCertificate.vue'
+import MyProfileModification from '../views/MyProfileModification.vue'
+import InternationalActivity from '../views/InternationalActivity.vue'
 
 Vue.use(VueRouter);
 
