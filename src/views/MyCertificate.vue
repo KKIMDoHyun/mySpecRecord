@@ -4,9 +4,40 @@
       <h2>수료증 / 자격증</h2>
       <Modal v-on:pass="addCertification"></Modal>
       <b-table class="table" head-variant="light" sticky-header striped hover :fixed="true" :items="this.$store.state.certifications" :fields="fields">
+        
+        <!-- 수상명 -->      
+        <template #cell(name)="data">
+          <b-col sm="8">
+            <p v-b-popover.hover.top="data.value" title="수상명" v-if="modify == false" class="name">{{data.value}}</p>
+            <b-input v-else v-model="data.value"></b-input>
+          </b-col>
+        </template>
+
+        <!-- 수여기관 -->
+        <template #cell(agency)="data">
+          <b-col sm="8">
+            <p v-b-popover.hover.top="data.value" title="수여기관" v-if="modify == false" class="name">{{data.value}}</p>
+            <b-input v-else v-model="data.value"></b-input>
+          </b-col>
+        </template>
+
+        <!-- 수상/공모일 -->
+        <template #cell(date)="data">
+          <b-col sm="8">
+            <p v-if="modify == false">{{data.value}}</p>
+            <b-input type="month" v-else v-model="data.value"></b-input>
+          </b-col>
+        </template>
+
+        <!-- 관련 URL -->
         <template #cell(link)="data">
-            <a :href="data.value">{{data.value}}</a>
-          <span class="remove btn" @click="removeCertification(data, data.index)">X</span>
+            <a class="link" :href="data.value">{{data.value}}</a>
+        </template>
+
+        <template #cell(index)="data">
+          <span class="remove" @click="removeCertification(data, data.index)">
+              <i class="fas fa-trash-alt"></i>
+          </span>
         </template>
       </b-table>
     </b-card>
@@ -14,7 +45,7 @@
 </template>
 
 <script>
-import Modal from '../components/Modal.vue';
+import Modal from '../components/CertificationModal.vue';
 export default {
   data() {
     return {
@@ -22,15 +53,16 @@ export default {
         {key: 'name', label: '이름'}, 
         {key: 'agency', label: '발행 기관'},
         {key: 'date', label: '발행 날짜'},
-        {key: 'link', label: '관련 URL'}],
-      modalStatus: false,
+        {key: 'link', label: '관련 URL'},
+        {key: 'index', label: ''}],
       certificateInfo: {
         name: "",
         agency: "",
         date: "",
         link: ""
       },
-      maxDate: new Date()
+      modify: false,
+      complete: true,
     }
   },
   components: {
@@ -39,20 +71,6 @@ export default {
   methods: {
     addCertification(certificationInfo) {
       this.$store.commit('addOneCertificate', JSON.stringify(certificationInfo));
-    },
-    addCertificate() {
-      this.$store.commit('addOneCertificate', JSON.stringify(this.certificateInfo));
-      this.closeModal();
-    },
-    closeModal() {
-      this.modalStatus = !this.modalStatus;
-      this.clearInput();
-    },
-    clearInput() {
-      this.certificateInfo.name = '';
-      this.certificateInfo.agency = '';
-      this.certificateInfo.date = '';
-      this.certificateInfo.link = '';
     },
     removeCertification(certification, index) {
       this.$store.commit('removeOneCertification', {certification, index});
@@ -65,18 +83,31 @@ export default {
 .table {
   margin-top: 1vw;
 }
+.link {
+  white-space: nowrap;
+  width: 18vw;
+  text-overflow: ellipsis; 
+  overflow: hidden;
+  display: inline-block;
+}
+.remove {
+  text-align: center;
+  font-size: 1rem;
+  margin-left: 10vw;
+  cursor: pointer;
+}
 h2 {
   margin-bottom: 3vh;
 }
 .remove {
-  float:right;
-  width: 3vw;
-  height: 3vh;
   text-align: center;
+  font-size: 1rem;
+  margin-left: 10vw;
   cursor: pointer;
 }
-span:hover {
+i:hover {
   color:red;
+  font-size: 1.5rem;
   -webkit-animation: shake 0.4s ease-in-out .1s infinite alternate;
 }
 @-webkit-keyframes shake {

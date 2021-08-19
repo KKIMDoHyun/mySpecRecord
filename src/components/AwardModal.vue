@@ -1,18 +1,17 @@
 <template>
   <div>
-      <b-button v-b-modal.modal-prevent-closing>추가하기</b-button>
-
+    <b-button v-b-modal.modal-prevent-closing>추가하기</b-button>
     <b-modal
       id="modal-prevent-closing"
       ref="modal"
       size="lg"
-      title="수료증 / 자격증 정보 입력"
+      title="수상 내용 입력"
       @show="resetModal"
       @ok="handleOk"
     >
       <form ref="form" @submit.stop.prevent="handleSubmit">
         <b-form-group
-          label="이름"
+          label="수상명"
           class="container"
           label-for="name-input"
           :state="nameState"
@@ -20,18 +19,18 @@
           <b-form-input
             id="name-input"
             class="input"
-            v-model="certificationInfo.name"
+            v-model="awardInfo.awardName"
             :state="nameState"
-            placeholder="이름"
+            placeholder="수상명 입력"
             required
           ></b-form-input>
         <b-form-invalid-feedback id="name-input-feedback">
-            이름을 입력해주세요.
+            수상명을 입력해주세요.
         </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group
-          label="발행기관"
+          label="수여기관"
           class="container"
           label-for="agency-input"
           :state="agencyState"
@@ -39,18 +38,18 @@
           <b-form-input
             id="agency-input"
             class="input"
-            v-model="certificationInfo.agency"
+            v-model="awardInfo.agency"
             :state="agencyState"
-            placeholder="발행기관"
+            placeholder="수여기관 입력"
             required
           ></b-form-input>
             <b-form-invalid-feedback id="agency-input-feedback">
-                발행기관을 입력해주세요.
+                수여기관을 입력해주세요.
             </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group
-          label="발행날짜"
+          label="수상/공모일"
           label-for="date-input"
           class="container"
           :state="dateState"
@@ -58,26 +57,26 @@
           <b-form-input
             id="date-input"
             class="input"
-            v-model="certificationInfo.date"
+            v-model="awardInfo.date"
             type="month"
             :state="dateState"
             required
           ></b-form-input>
             <b-form-invalid-feedback id="date-input-feedback">
-                날짜를 입력해주세요.
+                날짜를 기록해주세요.
             </b-form-invalid-feedback>
         </b-form-group>
 
         <b-form-group
-          label="관련 URL"
-          label-for="url-input"
+          label="상세 내용"
+          label-for="detail-input"
           class="container"
         >
           <b-form-input
-            id="url-input"
+            id="detail-input"
             class="input"
-            v-model="certificationInfo.link"
-            placeholder="관련 링크"
+            v-model="awardInfo.detail"
+            placeholder="상세 내용 입력"
           ></b-form-input>
         </b-form-group>
       </form>
@@ -89,20 +88,20 @@
 export default {
 data() {
       return {
-        certificationInfo: {
-            name: "",
+        awardInfo: {
+            awardName: "",
             agency: "",
             date: "",
-            link: ""
+            detail: ""
         }
       }
     },
     methods: {
       resetModal() {
-        this.certificationInfo.name = ''
-        this.certificationInfo.agency = ''
-        this.certificationInfo.date = ''
-        this.certificationInfo.link = ''
+        this.awardInfo.awardName = ''
+        this.awardInfo.agency = ''
+        this.awardInfo.date = ''
+        this.awardInfo.detail = ''
       },
       checkFormValidity() {
         const valid = this.$refs.form.checkValidity()
@@ -119,7 +118,7 @@ data() {
         if (!this.checkFormValidity()) {
           return
         }
-        this.$emit('pass', this.certificationInfo);
+        this.$emit('pass', this.awardInfo);
         // Hide the modal manually
         this.$nextTick(() => {
           this.$bvModal.hide('modal-prevent-closing')
@@ -128,13 +127,13 @@ data() {
     },
     computed: {
       nameState() {
-        return this.certificationInfo.name.length > 0 ? true : false
+        return this.awardInfo.awardName.length > 0 ? true : false
       },
       agencyState() {
-        return this.certificationInfo.agency.length > 0 ? true : false
+        return this.awardInfo.agency.length > 0 ? true : false
       },
       dateState() {
-        return this.certificationInfo.date.length ? true : false
+        return this.awardInfo.date.length ? true : false
       }
     },
 }

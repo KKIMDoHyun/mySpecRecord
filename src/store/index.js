@@ -53,7 +53,12 @@ export const store = new Vuex.Store({
             state.certifications.splice(payload.index, 1);
             localStorage.removeItem('certifications');
             localStorage.setItem("certifications", JSON.stringify(state.certifications));
-        }
+        },
+        removeOneAward(state, payload) {
+            state.awardList.splice(payload.index, 1);
+            localStorage.removeItem('awardList');
+            localStorage.setItem("awardList", JSON.stringify(state.awardList));
+        },
     },
         
 })
