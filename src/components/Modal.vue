@@ -8,7 +8,6 @@
       size="lg"
       title="수료증 / 자격증 정보 입력"
       @show="resetModal"
-      @hidden="resetModal"
       @ok="handleOk"
     >
       <form ref="form" @submit.stop.prevent="handleSubmit">
@@ -95,7 +94,7 @@ data() {
             agency: "",
             date: "",
             link: ""
-        },
+        }
       }
     },
     methods: {
@@ -110,7 +109,6 @@ data() {
         return valid
       },
       handleOk(bvModalEvt) {
-        console.log(this.certificationInfo)
         // Prevent modal from closing
         bvModalEvt.preventDefault()
         // Trigger submit handler
