@@ -81,3 +81,15 @@ ___
 
 [참고한 daum 우편번호 API](https://postcode.map.daum.net/guide)  
 [참고한 Bootstrap-vue](https://bootstrap-vue.org/)
+
+___
+
+## 2021-08-19
+### <활동>
+- 수상내역 부분 및 수료증/자격증 부분 bootstrap-vue 적용하여 추가, 삭제 기능 완료
+- 디자인 정리
+
+### <막혔던 점>
+- 수정하기 기능을 구현할 때 bootstrap-vue에서 선택한 객체의 값은 받아왔지만 index값을 받아오는 것이 어렵다. 수정하기 기능의 구현에서 시간을 많이 투자했지만 하지 못했다.
+
+> 해결: 해결하진 못했지만 store에 있는 배열에 index를 추가해주고 이를 이용하여 객체를 호출한 뒤, 값을 수정한 후에 localStorage의 값을 index를 이용하여 변경하는 방법을 생각해보았다. 
