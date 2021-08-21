@@ -1,11 +1,18 @@
 <template>
-  <div>
-    <b-card bg-variant="light">
+  <div class="wrapped">
+      <div style="margin-left: 2vw;">
       <h2>수상 내역</h2>
       <Modal v-on:pass="addAward"></Modal>
-      <b-table class="table" 
-        head-variant="light" 
-        sticky-header 
+      </div>
+      
+      <b-table 
+        class="table"
+        id="my-table" 
+        head-variant="dark"
+        no-border-collapse
+        :sticky-header="false"
+        :per-page="perPage"
+        :current-page="currentPage"
         striped
         hover 
         :fixed="true" 
@@ -65,8 +72,14 @@
           </span>
         </template>
       </b-table>
-      
-    </b-card>
+      <b-pagination
+        align="center"
+        v-model="currentPage"
+        :total-rows="rows"
+        :per-page="perPage"
+        aria-controls="my-table"
+      ></b-pagination>
+    
     <div class="text-center">
       <template v-if="complete==true">
         <b-button @click="modifyAward()">수정하기</b-button>
@@ -75,6 +88,7 @@
         <b-button @click="submitAward()">완료</b-button>
       </template>
     </div>
+
   </div>
 </template>
 
@@ -101,6 +115,8 @@ export default {
       },
       modify: false,
       complete: true,
+      currentPage: 1,
+      perPage: 8,
     }
   },
   components: {
@@ -128,11 +144,19 @@ export default {
       this.modify = false;
       this.complete = true;
     }
+  },
+  computed: {
+    rows() {
+        return this.$store.state.awardList.length
+      }
   }
 };
 </script>
 
 <style scoped>
+.wrapped {
+  margin-top: 5vh;
+}
 .table {
   margin-top: 1vw;
 }

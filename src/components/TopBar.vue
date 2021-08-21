@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <b-navbar toggleable="lg" type="dark" variant="info">
-      <b-navbar-brand href="/">My Spec</b-navbar-brand>
+  <div class="wrapper">
+    <b-navbar toggleable="lg" type="dark" variant="info" sticky>
+      <b-navbar-brand tag="h1" style="padding-left:2vw" href="/">My Spec</b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -22,4 +22,8 @@ export default {};
 </script>
 
 <style scoped>
+.wrapper {
+  position: sticky;
+  top:0;
+}
 </style>

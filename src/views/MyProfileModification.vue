@@ -21,6 +21,7 @@
             placeholder="홍길동"
             type="text"
             v-model="user.name"
+            :state="nameState"
             required
           ></b-form-input>
         </b-form-group>
@@ -36,6 +37,7 @@
           button-variant="outline-primary"
           size="lg"
           name="radio-btn-outline"
+          :state="sexState"
           buttons
         ></b-form-radio-group>
       </b-form-group>
@@ -51,6 +53,7 @@
           placeholder="aaa@aaaa.com"
           type="email"
           v-model="user.email"
+          :state="emailState"
           required
         ></b-form-input>
       </b-form-group>
@@ -65,6 +68,7 @@
           id="nested-state"
           type="date"
           v-model="user.birthday"
+          :state="birthdayState"
           required
         ></b-form-input>
       </b-form-group>
@@ -79,12 +83,13 @@
           id="phoneNumber"
           type="text"
           v-model="user.phoneNumber"
+          :state="phoneNumberState"
           required
         ></b-form-input>
       </b-form-group>
 
       <b-form-group
-        label="주소 (필수)"
+        label="주소"
         label-for="address"
         label-cols-sm="3"
         label-align-sm="right"
@@ -96,7 +101,6 @@
           content-cols-lg="10"
           v-model="user.zonecode"
           readonly
-          required
         ></b-form-input>
         <b-form-input 
           id="mainAddress"
@@ -104,7 +108,6 @@
           content-cols-lg="10"
           v-model="user.mainAddress"
           readonly
-          required
         ></b-form-input>
         <b-form-input
           id="detailAddress"
@@ -112,17 +115,18 @@
           content-cols-lg="10"
           placeholder="상세주소"
           v-model="user.detailAddress"
-          required
         ></b-form-input>
       </b-form-group>
     </b-form-group>
   </b-card>
-  <router-link v-on:click.native="submitInfo" to="/">dddd</router-link>
-  <!-- <b-button v-on:click="submitInfo">수정 완료</b-button> -->
+  <div class="text-center" style="margin-top: 3vh">
+    <b-button v-on:click="submitInfo">수정 완료</b-button>
+  </div>
 </div>
 </template>
 
 <script>
+import { router } from '../routes';
 export default {
   data() {
     return {
@@ -136,16 +140,12 @@ export default {
         zonecode: this.$store.state.userInfo.zonecode,
         mainAddress: this.$store.state.userInfo.mainAddress,
         detailAddress: this.$store.state.userInfo.detailAddress,
-        // address: {
-        //   zonecode: this.$store.state.userInfo.zonecode,
-        //   mainAddress: this.$store.state.userInfo.mainAddress,
-        //   detailAddress: this.$store.state.userInfo.detailAddress,
-        // }
       },
       options: [
         { text: '남', value: '남'},
         { text: '여', value: '여'}
-      ]
+      ],
+      errors: []
     }  
   },
   methods: {
@@ -187,9 +187,86 @@ export default {
         }).open();
     },
     submitInfo() {
-      console.log(this.user)
-      this.$store.commit('modifyInfo', this.user);
+      if (this.nameState &&
+          this.sexState &&
+          this.emailState &&
+          this.birthdayState &&
+          this.phoneNumberState) {
+        router.push('/')
+        this.$store.commit('modifyInfo', this.user);
+      } else {
+        this.$bvModal.msgBoxOk('필수 항목을 채워주세요!!', {
+          title: '경고',
+          size: 'md',
+          centered: true,
+        })
+          .then(() => {
+            console.log(this.user);
+          })
+          .catch(err => {
+            console.log(err);
+            // An error occurred
+          })
+      }
     },
+    // checkForm(e) {
+    //   e.preventDefault();
+    //   this.errors = [];
+    //   if(!this.nameState) {
+    //     this.errors.push("이름은 필수입니다!")
+    //   }
+    //   if(!this.sexState) {
+    //     this.errors.push("성별 선택은 필수입니다!")
+    //   }
+    //   if(!this.emailState) {
+    //     this.errors.push("이메일은 필수입니다!")
+    //   } else if (!this.validEmail(this.user.email)) {
+    //     this.errors.push("이메일 형식을 확인하세요.")
+    //   }
+    //   if(!this.birthdayState) {
+    //     this.errors.push("생일은 필수입니다!")
+    //   }
+    //   if(!this.phoneNumberState) {
+    //     this.errors.push("휴대폰은 필수입니다!")
+    //   }
+    // },
+    validEmail(email) {
+      var re = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i
+      return re.test(email)
+    },
+    validBirthday(birthday) {
+      var re = /^(19[0-9][0-9]|20\d{2})-(0[0-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+      return re.test(birthday);
+    },
+  },
+  computed: {
+    nameState() {
+      return this.user.name.length > 0 ? true : false;
+    },
+    sexState() {
+      if (this.user.sex == "남" || this.user.sex == "여") {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    emailState() {
+      if (this.validEmail(this.user.email)){
+        return true;
+      } else {
+        return false;
+      }
+    },
+    birthdayState() {
+      if (this.validBirthday(this.user.birthday)){
+        return true;
+      } else {
+        return false;
+      }
+    },
+    phoneNumberState() {
+      return this.user.phoneNumber > 0 ? true : false;
+    }
   }
 }
 </script>

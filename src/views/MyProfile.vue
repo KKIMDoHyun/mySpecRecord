@@ -1,16 +1,16 @@
 <template>
-  <div>
-    <h2>내 정보</h2>
-    <div class="name">
-        {{ this.$store.state.userInfo.name }} ({{ this.$store.state.userInfo.sex }})
+  <div class="wrapper">
+    <div class="content">
+      <h2>내 정보</h2>
+        이름: {{ user.name }} <span v-if="user.sex">({{ user.sex }})</span>
         <br>
-        이메일: {{ this.$store.state.userInfo.email }}
+        이메일: {{ user.email }}
         <br>
-        생년월일: {{ this.$store.state.userInfo.birthday }}
+        생년월일: {{ user.birthday }}
         <br>
-        전화번호: {{ this.$store.state.userInfo.phoneNumber }}
+        전화번호: {{ user.phoneNumber }}
         <br>
-        주소: {{ this.$store.state.userInfo.mainAddress }} {{ this.$store.state.userInfo.detailAddress }}
+        주소: {{ user.mainAddress }} {{ user.detailAddress }}
         <br>
         <router-link to="/modification">회원 정보 수정</router-link>
     </div>
@@ -19,10 +19,19 @@
 
 <script>
 export default {
-
+  computed: {
+    user() {
+      return this.$store.state.userInfo;
+    }
+  }
 };
 </script>
 
 <style scoped>
-
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
 </style>
